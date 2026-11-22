@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solidarite immo | إدارة العقارات</title>
+<style>
+:root{--navy:#082d55;--blue:#1266b2;--pale:#eaf4ff;--ink:#172b42;--muted:#62758a;--line:#dce7f1;--bg:#f5f8fc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.65}
+.wrap{width:min(1120px,92%);margin:auto}header{background:linear-gradient(120deg,#082d55,#1677c5);color:white;padding:17px 0 40px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.brand{font-size:24px;font-weight:800}.brand span{color:#bfe3ff}nav a{color:white;margin-inline-start:15px;font-size:14px;text-decoration:none}
+.hero{padding:42px 0 10px}.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.25;margin:8px 0}.hero p{color:#e0efff;margin:0 0 18px}.btn{display:inline-block;border:0;border-radius:9px;background:white;color:var(--navy);font-weight:bold;padding:10px 17px;text-decoration:none;cursor:pointer}
+main{padding:28px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}h2{color:var(--navy);margin:0;font-size:25px}.sub{color:var(--muted);margin:4px 0 17px;font-size:14px}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0 20px}input,select,textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink);min-width:0}.filters input{flex:1;min-width:190px}.filters select{min-width:140px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:0 5px 18px #0b37600a}.photo{height:170px;background:linear-gradient(135deg,#d8ebfa,#91bee3);display:grid;place-items:center;color:#174f82;font-size:42px;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover}.body{padding:15px}.tag{display:inline-block;background:var(--pale);color:#125a99;border-radius:20px;padding:3px 10px;font-size:12px;font-weight:bold}.card h3{margin:8px 0 3px;font-size:18px}.muted{color:var(--muted);font-size:13px}.price{font-size:19px;color:var(--blue);font-weight:800;margin:8px 0}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.action{border:0;border-radius:8px;padding:8px 10px;background:var(--blue);color:white;text-decoration:none;font:inherit;font-size:13px;cursor:pointer}.action.light{background:#edf4fb;color:#164e7e}.action.danger{background:#fff0f0;color:#a52b2b}
+.panel{padding:20px;margin-top:30px}.panel h2{margin-bottom:3px}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.formgrid input,.formgrid select,.formgrid textarea{width:100%}.formgrid textarea{grid-column:1/-1;min-height:85px}.wide{grid-column:1/-1}.submit{background:var(--blue);color:white;border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:bold;cursor:pointer;margin-top:12px}.hint{font-size:12px;color:var(--muted);margin:10px 0 0}.hidden{display:none!important}.empty{background:white;border:1px dashed #b9cde0;border-radius:12px;padding:25px;text-align:center;color:var(--muted);grid-column:1/-1}
+footer{background:var(--navy);color:#e7f3ff;text-align:center;padding:25px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:570px){.grid,.formgrid{grid-template-columns:1fr}.formgrid textarea,.wide{grid-column:auto}.hero{padding-top:30px}nav a{margin-inline-start:7px}}
+</style></head>
+<body>
+<header><div class="wrap">
+<nav><div class="brand">Solidarite <span>immo</span></div><div><a href="#listings">العقارات</a><a href="#admin">إدارة الإعلانات</a><a href="#contact">اتصل بنا</a></div></nav>
+<section class="hero"><div style="color:#c7e6ff">بوابتك للعقارات في تونس</div><h1>دارك الجاية تبدأ من هنا</h1><p>اكتشف عقارات للبيع والكراء مع Solidarite immo.</p><a class="btn" href="#listings">اكتشف الإعلانات</a></section>
+</div></header>
+<main class="wrap">
+<section id="listings"><div class="head"><div><h2>العقارات المتوفرة</h2><p class="sub">ابحث واختار العقار المناسب ليك</p></div><span class="tag" id="count">0 إعلان</span></div>
+<div class="filters"><input id="search" placeholder="ابحث حسب العنوان أو الموقع"><select id="kind"><option value="">كل الأنواع</option><option>دار</option><option>فيلا</option><option>شقة</option><option>أرض</option><option>محل تجاري</option></select><select id="deal"><option value="">بيع وكراء</option><option>للبيع</option><option>للكراء</option></select></div>
+<div class="grid" id="cards"></div></section>
+
+<section class="panel" id="admin"><h2>لوحة إدارة الإعلانات</h2><p class="sub">أضف إعلاناً أو عدّل إعلاناً موجوداً. التغييرات تحفظ في هذا المتصفح.</p>
+<form id="form"><input type="hidden" id="editId">
+<div class="formgrid">
+<input id="title" placeholder="عنوان العقار *" required>
+<input id="location" placeholder="الموقع / المدينة *" required>
+<select id="kindInput"><option>دار</option><option>فيلا</option><option>شقة</option><option>أرض</option><option>محل تجاري</option></select>
+<select id="dealInput"><option>للبيع</option><option>للكراء</option></select>
+<input id="area" placeholder="المساحة بالمتر المربع">
+<input id="price" placeholder="السعر (مثال: 200 مليون)">
+<input id="phone" placeholder="رقم الاتصال (اختياري)" value="52460349">
+<label class="wide">صورة العقار: <input id="photo" type="file" accept="image/*"></label>
+<textarea id="description" placeholder="تفاصيل العقار"></textarea>
+</div>
+<button class="submit" id="saveBtn" type="submit">إضافة الإعلان</button>
+<button class="action light hidden" id="cancelEdit" type="button">إلغاء التعديل</button>
+</form>
+<p class="hint">ملاحظة: النسخة الحالية تحفظ البيانات والصور على نفس الجهاز والمتصفح فقط. لا تُرسل الإعلانات إلى الإنترنت ولا تظهر للزوار الآخرين قبل ربط الموقع بخادم وقاعدة بيانات.</p>
+</section>
+<section class="panel" id="contact"><h2>تواصل مع Solidarite immo</h2><p class="sub">للاستفسار حول العقارات والإعلانات.</p><p>الهاتف: <a href="tel:52460349">52 460 349</a> · <a href="tel:26198803">26 198 803</a></p><p class="hint">النطاق المقترح: solidariteimmo.com — لم يتم التثبت من توفره أو تسجيله بعد.</p></section>
+</main><footer><strong>Solidarite immo</strong><br>عقارات أقرب لاختياراتك · تونس</footer>
+<script>
+const KEY='solidarite_immo_listings_v2';
+const initial=[
+{id:'seed1',title:'دار عربي و2 ڨراجات',location:'قليبية',kind:'دار',deal:'للبيع',area:'412',price:'400 مليون',phone:'52460349',description:'واجهة 12 متر · تفتح على طريق رئيسي · عداد كهرباء وبئر · الثمن قابل للنقاش',photo:''},
+{id:'seed2',title:'فيلا في جنان المنصورة',location:'قليبية',kind:'فيلا',deal:'للبيع',area:'280',price:'للاستفسار',phone:'52460349',description:'اتصل بوكالة Solidarite immo لمعرفة التفاصيل.',photo:''},
+{id:'seed3',title:'فيلا مستقلة',location:'قليبية',kind:'فيلا',deal:'للبيع',area:'205',price:'200 مليون',phone:'26198803',description:'غرفتان وصالة ومطبخ ودش وبيت استحمام ومنشر خلفي · شهادة ملكية',photo:''}
+];
+let listings;
+try{const saved=localStorage.getItem(KEY);listings=saved?JSON.parse(saved):initial.slice()}catch(e){listings=initial.slice()}
+const $=id=>document.getElementById(id);
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(listings))}catch(e){alert('مساحة التخزين غير كافية للصورة. جرّب صورة أصغر.');}}
+function make(tag,cls,txt){const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=txt;return el}
+function render(){
+ const host=$('cards');host.replaceChildren();let q=$('search').value.trim().toLowerCase(),k=$('kind').value,d=$('deal').value;
+ let shown=listings.filter(x=>(!q||(x.title+' '+x.location+' '+x.description).toLowerCase().includes(q))&&(!k||x.kind===k)&&(!d||x.deal===d));
+ $('count').textContent=shown.length+' إعلان';
+ if(!shown.length){host.append(make('div','empty','ما فماش إعلانات مطابقة للبحث حالياً.'));return}
+ shown.forEach(x=>{
+  const card=make('article','card'),photo=make('div','photo');
+  if(x.photo){const im=document.createElement('img');im.src=x.photo;im.alt=x.title;photo.append(im)}else photo.textContent='⌂';
+  const body=make('div','body');body.append(make('span','tag',x.deal+' · '+x.kind),make('h3','',x.title),make('div','muted',x.location+(x.area?' · '+x.area+' م²':'')),make('div','price',x.price||'للاستفسار'),make('div','muted',x.description||''));
+  const actions=make('div','actions');const tel=make('a','action','اتصل '+(x.phone||'بالوكالة'));tel.href='tel:'+(x.phone||'52460349');actions.append(tel);
+  const edit=make('button','action light','تعديل');edit.type='button';edit.onclick=()=>loadEdit(x.id);actions.append(edit);
+  const del=make('button','action danger','حذف');del.type='button';del.onclick=()=>{if(confirm('تحب تحذف الإعلان هذا؟')){listings=listings.filter(a=>a.id!==x.id);persist();render()}};actions.append(del);
+  body.append(actions);card.append(photo,body);host.append(card);
+ });
+}
+function loadEdit(id){const x=listings.find(a=>a.id===id);if(!x)return;$('editId').value=x.id;$('title').value=x.title;$('location').value=x.location;$('kindInput').value=x.kind;$('dealInput').value=x.deal;$('area').value=x.area;$('price').value=x.price;$('phone').value=x.phone;$('description').value=x.description;$('photo').value='';$('saveBtn').textContent='حفظ التعديلات';$('cancelEdit').classList.remove('hidden');$('admin').scrollIntoView({behavior:'smooth'});}
+function resetForm(){$('form').reset();$('editId').value='';$('phone').value='52460349';$('saveBtn').textContent='إضافة الإعلان';$('cancelEdit').classList.add('hidden')}
+$('cancelEdit').onclick=resetForm;
+$('form').addEventListener('submit',async e=>{
+ e.preventDefault();const file=$('photo').files[0];let photo='';
+ if(file){if(file.size>1500000){alert('الصورة كبيرة. اختار صورة أقل من 1.5 ميغابايت.');return}
+  photo=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)});
+ }
+ const id=$('editId').value,old=listings.find(x=>x.id===id);
+ const item={id:id||('p'+Date.now()),title:$('title').value.trim(),location:$('location').value.trim(),kind:$('kindInput').value,deal:$('dealInput').value,area:$('area').value.trim(),price:$('price').value.trim(),phone:$('phone').value.trim()||'52460349',description:$('description').value.trim(),photo:photo||(old?old.photo:'')};
+ if(old)listings=listings.map(x=>x.id===id?item:x);else listings.unshift(item);
+ persist();resetForm();render();$('listings').scrollIntoView({behavior:'smooth'});
+});
+['search','kind','deal'].forEach(id=>$(id).addEventListener('input',render));
+render();
+</script></body></html>
